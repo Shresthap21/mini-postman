@@ -9,6 +9,30 @@ function App() {
   const [body, setBody] = useState("");
   const [headers, setHeaders] = useState([]);
 
+  const sendRequest = async () => {
+  const requestConfig = {
+    method,
+    url,
+    headers,
+    body: body || null,
+  };
+
+  const response = await fetch(
+    "http://localhost:5000/api/request",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestConfig),
+    }
+  );
+
+  const data = await response.json();
+
+  console.log(data);
+};
+
   return (
     <div className="app">
       <header className="header">
@@ -40,7 +64,7 @@ function App() {
             }
           />
 
-          <button>Send</button>
+          <button onClick={sendRequest}>Send</button>
         </div>
 
         <HeadersEditor
