@@ -10,6 +10,7 @@
 
 .header h1 {
   margin: 0;
+  color: #111827;
   font-size: 32px;
 }
 
@@ -31,17 +32,25 @@
 .request-bar select {
   width: 120px;
   padding: 12px;
+  color: #111827;
+  background: white;
   border: 1px solid #d1d5db;
   border-radius: 8px;
-  background: white;
+  outline: none;
 }
 
 .request-bar input {
   flex: 1;
   padding: 12px 16px;
+  color: #111827;
+  background: white;
   border: 1px solid #d1d5db;
   border-radius: 8px;
   outline: none;
+}
+
+.request-bar input::placeholder {
+  color: #9ca3af;
 }
 
 .request-bar button {
@@ -51,35 +60,23 @@
   background: #111827;
   color: white;
   cursor: pointer;
+  font-weight: 600;
+}
+
+.request-bar button:hover {
+  opacity: 0.9;
 }
 
 .section {
-  position: relative;
   margin-top: 30px;
 }
 
 .section h2 {
+  margin: 0 0 12px;
+  color: #111827;
   font-size: 18px;
-  margin-bottom: 12px;
 }
 
-textarea {
-  width: 100%;
-  padding: 16px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  resize: vertical;
-  font-family: monospace;
-  font-size: 14px;
-}
-
-.secondary-button {
-  padding: 8px 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  background: white;
-  cursor: pointer;
-}
 .section-title {
   display: flex;
   align-items: center;
@@ -91,6 +88,19 @@ textarea {
   margin: 0;
 }
 
+.secondary-button {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: white;
+  color: #111827;
+  cursor: pointer;
+}
+
+.secondary-button:hover {
+  background: #f9fafb;
+}
+
 .header-row {
   display: grid;
   grid-template-columns: 1fr 1fr auto;
@@ -100,9 +110,15 @@ textarea {
 
 .header-row input {
   padding: 10px 12px;
+  color: #111827;
+  background: white;
   border: 1px solid #d1d5db;
   border-radius: 7px;
-  background: white;
+  outline: none;
+}
+
+.header-row input::placeholder {
+  color: #9ca3af;
 }
 
 .remove-button {
@@ -110,6 +126,25 @@ textarea {
   border: 1px solid #d1d5db;
   border-radius: 7px;
   background: white;
+  color: #111827;
   cursor: pointer;
   font-size: 20px;
+}
+
+textarea {
+  width: 100%;
+  padding: 16px;
+  color: #e5e7eb;
+  background: #1f2937;
+  border: 1px solid #374151;
+  border-radius: 8px;
+  resize: vertical;
+  font-family: monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  outline: none;
+}
+
+textarea::placeholder {
+  color: #9ca3af;
 }
