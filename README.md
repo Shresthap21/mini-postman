@@ -195,7 +195,3 @@ Instead, we're building the core functionality ourselves to understand the funda
 - [React](https://react.dev/)
 - [Vite](https://vite.dev/)
 - [JSONPlaceholder](https://jsonplaceholder.typicode.com/)
-
-## 📄 License
-
-This project is built for educational purposes as part of a Build With Me session.
