@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "./App.css";
-
 import HeadersEditor from "./components/HeadersEditor";
 
 function App() {
@@ -9,29 +8,49 @@ function App() {
   const [body, setBody] = useState("");
   const [headers, setHeaders] = useState([]);
 
+  const [response, setResponse] = useState(null);
+  const [loading, setLoading] = useState(false);
+
   const sendRequest = async () => {
-  const requestConfig = {
-    method,
-    url,
-    headers,
-    body: body || null,
-  };
-
-  const response = await fetch(
-    "http://localhost:5000/api/request",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(requestConfig),
+    if (!url.trim()) {
+      alert("Please enter a URL");
+      return;
     }
-  );
 
-  const data = await response.json();
+    setLoading(true);
+    setResponse(null);
 
-  console.log(data);
-};
+    const requestConfig = {
+      method,
+      url,
+      headers,
+      body: body || null,
+    };
+
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/request",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestConfig),
+        }
+      );
+
+      const data = await response.json();
+
+      setResponse(data);
+    } catch (error) {
+      setResponse({
+        error: "Could not connect to MiniPost server",
+        message: error.message,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="app">
@@ -64,7 +83,9 @@ function App() {
             }
           />
 
-          <button onClick={sendRequest}>Send</button>
+          <button onClick={sendRequest} disabled={loading}>
+            {loading ? "Sending..." : "Send"}
+          </button>
         </div>
 
         <HeadersEditor
@@ -86,6 +107,46 @@ function App() {
             rows="10"
           />
         </section>
+
+        {response && (
+          <section className="section response-section">
+            <div className="response-header">
+              <h2>Response</h2>
+
+              {response.status && (
+                <div className="response-meta">
+                  <span>
+                    {response.status} {response.statusText}
+                  </span>
+
+                  <span>{response.time} ms</span>
+                </div>
+              )}
+            </div>
+
+            {response.error && (
+              <div className="error-box">
+                <strong>{response.error}</strong>
+
+                {response.message && (
+                  <p>{response.message}</p>
+                )}
+              </div>
+            )}
+
+            {response.body !== undefined && (
+              <pre className="response-body">
+                {typeof response.body === "object"
+                  ? JSON.stringify(
+                      response.body,
+                      null,
+                      2
+                    )
+                  : response.body}
+              </pre>
+            )}
+          </section>
+        )}
       </main>
     </div>
   );

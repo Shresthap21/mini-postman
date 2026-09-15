@@ -12,14 +12,66 @@ app.get("/", (req, res) => {
   });
 });
 
-app.post("/api/request", (req, res) => {
-  console.log("Received request configuration:");
-  console.log(req.body);
+app.post("/api/request", async (req, res) => {
+  const { method, url, headers = [], body } = req.body;
 
-  res.json({
-    message: "Request received successfully",
-    request: req.body,
-  });
+  if (!url) {
+    return res.status(400).json({
+      error: "URL is required",
+    });
+  }
+
+  try {
+    const requestHeaders = {};
+
+    headers.forEach((header) => {
+      if (header.key && header.value) {
+        requestHeaders[header.key] = header.value;
+      }
+    });
+
+    const startTime = Date.now();
+
+    const response = await fetch(url, {
+      method,
+      headers: requestHeaders,
+      body:
+        method === "GET" || method === "DELETE"
+          ? undefined
+          : body || undefined,
+    });
+
+    const responseTime = Date.now() - startTime;
+
+    const responseText = await response.text();
+
+    let responseBody;
+
+    try {
+      responseBody = JSON.parse(responseText);
+    } catch {
+      responseBody = responseText;
+    }
+
+    const responseHeaders = Object.fromEntries(
+      response.headers.entries()
+    );
+
+    res.json({
+      status: response.status,
+      statusText: response.statusText,
+      time: responseTime,
+      headers: responseHeaders,
+      body: responseBody,
+    });
+  } catch (error) {
+    console.error("Request failed:", error.message);
+
+    res.status(500).json({
+      error: "Failed to reach the requested API",
+      message: error.message,
+    });
+  }
 });
 
 const PORT = 5000;

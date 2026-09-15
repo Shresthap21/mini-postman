@@ -67,6 +67,11 @@
   opacity: 0.9;
 }
 
+.request-bar button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .section {
   margin-top: 30px;
 }
@@ -133,6 +138,7 @@
 
 textarea {
   width: 100%;
+  min-height: 250px;
   padding: 16px;
   color: #e5e7eb;
   background: #1f2937;
@@ -147,4 +153,67 @@ textarea {
 
 textarea::placeholder {
   color: #9ca3af;
+}
+
+/* Response */
+
+.response-section {
+  margin-top: 40px;
+}
+
+.response-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.response-header h2 {
+  margin: 0;
+}
+
+.response-meta {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.response-meta span {
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: #e5e7eb;
+  color: #111827;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.response-body {
+  margin: 0;
+  padding: 20px;
+  min-height: 250px;
+  max-height: 500px;
+  overflow: auto;
+
+  background: #1f2937;
+  color: #e5e7eb;
+
+  border-radius: 8px;
+
+  font-family: monospace;
+  font-size: 14px;
+  line-height: 1.6;
+
+  white-space: pre-wrap;
+}
+
+.error-box {
+  padding: 16px;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+.error-box p {
+  margin: 6px 0 0;
 }
