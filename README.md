@@ -12,7 +12,21 @@ MiniPost allows you to:
 - Add a request body
 - Send the request
 - View the API response
-- Inspect status codes, headers, JSON data, and response time
+- Inspect status codes, JSON data, and response time
+
+## Architecture
+
+```text
+React Frontend
+      ↓
+Node + Express Backend
+      ↓
+External API
+      ↑
+Node + Express Backend
+      ↑
+React Frontend
+```
 
 ## 🛠️ Tech Stack
 
@@ -52,7 +66,7 @@ mini-postman/
 ### 1. Clone the repository
 
 ```bash
-git clone <your-repository-url>
+git clone [https://github.com/Shresthap21/mini-postman.git](https://github.com/Shresthap21/mini-postman.git)
 cd mini-postman
 ```
 
@@ -87,7 +101,7 @@ The frontend will be available at the Vite development URL shown in your termina
 Inside the `server` directory:
 
 ```bash
-npm run dev
+node server.js
 ```
 
 The backend will run on:
@@ -169,22 +183,20 @@ The project is designed to demonstrate:
 
 ## Request Flow
 
-When the user clicks **Send**, the application will eventually follow this flow:
+When the user clicks **Send**, the request follows this flow:
 
-1. User enters request details
+1. User enters the request details
 2. React creates the request configuration
-3. React sends it to our Express backend
-4. Express validates the request
-5. Express makes the actual request to the external API
-6. External API returns a response
-7. Express processes the response
-8. React displays the response
+3. React sends the configuration to our Express backend
+4. Express validates the URL and prepares the request
+5. Express makes the actual HTTP request to the external API
+6. The external API returns a response
+7. Express reads the response status, headers, timing, and body
+8. React displays the response information
 
 ## Goal
 
-The goal of MiniPost isn't to recreate every feature of Postman.
-
-Instead, we're building the core functionality ourselves to understand the fundamentals of APIs, HTTP communication, frontend-backend architecture, and what actually happens when we click Send in an API testing tool.
+The goal of MiniPost is to build the core functionality ourselves to understand the fundamentals of APIs, HTTP communication, frontend-backend architecture, and what actually happens when we click Send in an API testing tool.
 
 ## Useful Resources
 
