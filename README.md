@@ -66,7 +66,7 @@ mini-postman/
 ### 1. Clone the repository
 
 ```bash
-git clone [https://github.com/Shresthap21/mini-postman.git](https://github.com/Shresthap21/mini-postman.git)
+git clone https://github.com/Shresthap21/mini-postman.git
 cd mini-postman
 ```
 
